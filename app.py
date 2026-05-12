@@ -105,24 +105,54 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 # =========================
-# 🔐 מסך כניסה למשתמשים מורשים בלבד
+# 🔐 כניסה / הרשמת משתמש חדש
 # =========================
 if not st.session_state.logged_in:
     st.markdown("<h2 style='text-align:center;'>🔐 כניסה למערכת</h2>", unsafe_allow_html=True)
-    username = st.text_input("שם משתמש")
-    password = st.text_input("סיסמה", type="password")
-    
-    if st.button("כניסה 🚀"):
-        if username and password:
-            user = users_collection.find_one({"username": username, "password": password})
-            if user:
-                st.session_state.logged_in = True
-                st.session_state.username = username
-                st.rerun()
+    login_tab, register_tab = st.tabs(["כניסה", "משתמש חדש — הרשמה"])
+
+    with login_tab:
+        username = st.text_input("שם משתמש", key="login_username")
+        password = st.text_input("סיסמה", type="password", key="login_password")
+        if st.button("כניסה 🚀", key="btn_login"):
+            if username and password:
+                user = users_collection.find_one({"username": username.strip(), "password": password})
+                if user:
+                    st.session_state.logged_in = True
+                    st.session_state.username = user["username"]
+                    st.rerun()
+                else:
+                    st.error("❌ שם משתמש או סיסמה שגויים! אינך מורשה להיכנס.")
             else:
-                st.error("❌ שם משתמש או סיסמה שגויים! אינך מורשה להיכנס.")
-        else:
-            st.warning("⚠️ אנא הזן שם משתמש וסיסמה")
+                st.warning("⚠️ אנא הזן שם משתמש וסיסמה")
+
+    with register_tab:
+        st.markdown("**פתיחת חשבון חדש** — השם ישמש אותך גם בהיסטוריית התרגול.")
+        new_user = st.text_input("שם משתמש חדש", key="reg_username")
+        new_pass = st.text_input("סיסמה", type="password", key="reg_password")
+        new_pass2 = st.text_input("אימות סיסמה", type="password", key="reg_password2")
+        if st.button("צור חשבון והמשך ✨", key="btn_register"):
+            u = (new_user or "").strip()
+            if not u or not new_pass:
+                st.warning("⚠️ נא למלא שם משתמש וסיסמה")
+            elif len(u) < 2:
+                st.warning("⚠️ שם משתמש קצר מדי (לפחות 2 תווים)")
+            elif len(new_pass) < 4:
+                st.warning("⚠️ סיסמה קצרה מדי (לפחות 4 תווים)")
+            elif new_pass != new_pass2:
+                st.error("❌ הסיסמאות אינן תואמות")
+            elif users_collection.find_one({"username": u}):
+                st.error("❌ שם המשתמש כבר תפוס — בחר שם אחר")
+            else:
+                try:
+                    users_collection.insert_one({"username": u, "password": new_pass})
+                    st.session_state.logged_in = True
+                    st.session_state.username = u
+                    st.success("החשבון נוצר בהצלחה!")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"שגיאה בשמירה: {e}")
+
     st.stop()
 
 # =========================
