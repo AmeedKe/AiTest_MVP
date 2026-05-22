@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800;900&display=swap');
+* { font-family: 'Heebo', sans-serif !important; }
+.stApp {
+    background: linear-gradient(-45deg, #FF9A9E, #FECFEF, #A1C4FD, #C2E9FB);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+body, .stMarkdown, .stText, .stChatMessage, .ai-response-box, p, div[data-testid="stChatMessageContent"] {
+    direction: rtl !important;
+    text-align: right !important;
+    color: #000000 !important;
+}
+ul, ol { direction: rtl !important; text-align: right !important; padding-right: 20px !important; }
+li { text-align: right !important; }
+div.block-container {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(25px);
+    border-radius: 40px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.1) !important;
+    padding: 4rem 3rem 5rem 3rem !important;
+    max-width: 800px !important;
+    margin-top: 5vh;
+}
+h1 {
+    font-weight: 900 !important; font-size: 4.5rem !important;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+h3.subtitle { text-align: center; color: #4A4A4A; margin-bottom: 3rem !important; }
+.ai-response-box {
+    font-size: 1.4rem; background: #fdfbfb; padding: 20px;
+    border-radius: 20px; border-right: 5px solid #ff4b2b;
+}
+.stButton > button {
+    background-color: #ffffff !important;
+    border: 2px solid #ff4b2b !important;
+    border-radius: 12px !important;
+    font-weight: bold !important;
+    transition: 0.3s !important;
+}
+.stButton > button p {
+    color: #000000 !important;
+    transition: 0.3s !important;
+}
+.stButton > button:hover {
+    background-color: #ff4b2b !important;
+}
+.stButton > button:hover p {
+    color: #ffffff !important;
+}
+.stIcon, .material-symbols-rounded, [data-testid="stIconMaterial"] {
+    font-family: "Material Symbols Rounded" !important;
+}
+div[data-testid="InputInstructions"] {
+    display: none !important;
+}
