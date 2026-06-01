@@ -14,8 +14,8 @@ ROLE_STUDENT = "student"
 ROLE_ADMIN = "admin"
 CONFIG_ADMIN_TOKEN_ID = "admin_registration_token"
 CONFIG_PASSWORD_RESET_TOKEN_ID = "password_reset_token"
-DEFAULT_ADMIN_TOKEN = os.getenv("ADMIN_REGISTRATION_TOKEN", "iTest-Admin-2026")
-DEFAULT_PASSWORD_RESET_TOKEN = os.getenv("PASSWORD_RESET_TOKEN", "iTest-Reset-2026")
+DEFAULT_ADMIN_TOKEN = os.getenv("ADMIN_REGISTRATION_TOKEN", "AiTest-Admin-2026")
+DEFAULT_PASSWORD_RESET_TOKEN = os.getenv("PASSWORD_RESET_TOKEN", "AiTest-Reset-2026")
 
 users = [
     {"username": "gadi", "password": "123", "role": ROLE_STUDENT},
