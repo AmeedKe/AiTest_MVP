@@ -127,7 +127,6 @@ def _render_users_management(current_username):
 
     st.divider()
     st.markdown("#### הוספת תלמיד (ידני)")
-    st.caption("מנהלים נרשמים דרך מסך ההרשמה עם TOKEN מ-MongoDB.")
     add_name = st.text_input("שם משתמש", key="admin_add_username")
     add_pass = st.text_input("סיסמה", type="password", key="admin_add_password")
     if st.button("הוסף תלמיד", key="btn_admin_add"):
@@ -145,7 +144,6 @@ def _render_users_management(current_username):
 
     st.divider()
     st.markdown("#### TOKEN הרשמת מנהל (MongoDB)")
-    st.caption("ה-TOKEN נשמר בקולקציה `config`, מסמך `admin_registration_token`.")
     if get_admin_registration_token():
         st.info("TOKEN מוגדר במערכת (לא מוצג כאן מטעמי אבטחה).")
     else:
@@ -164,7 +162,6 @@ def _render_users_management(current_username):
 
     st.divider()
     st.markdown("#### TOKEN איפוס סיסמה (MongoDB)")
-    st.caption("מסמך `password_reset_token` — לתלמידים ב«שכחתי סיסמה».")
     if get_password_reset_token():
         st.info("TOKEN איפוס סיסמה מוגדר (לא מוצג מטעמי אבטחה).")
     else:
