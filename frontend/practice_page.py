@@ -63,10 +63,9 @@ def render_practice_page(username):
                 )
             except Exception:
                 pass
+            st.rerun()
     except Exception as e:
         st.error(f"שגיאה: {e}")
-
-    _show_current_answer()
 
 
 def _show_current_answer():
