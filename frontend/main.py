@@ -1,6 +1,6 @@
 import streamlit as st
 
-from backend.database import is_db_connected
+from backend.database import get_db_error, is_db_connected
 from backend.practice_service import get_user_history
 from frontend.admin_page import render_admin_page
 from frontend.auth_page import render_auth_page
@@ -18,6 +18,9 @@ def run_app():
         st.error(
             "⚠️ לא ניתן להתחבר למסד הנתונים. ודא שה-MongoDB Cluster שלך פועל (Resume) ושה-MONGO_URI תקין."
         )
+        error_msg = get_db_error()
+        if error_msg:
+            st.error(f"📋 **פרטי השגיאה (Error Details):**\n`{error_msg}`")
         st.stop()
 
     if "logged_in" not in st.session_state:
